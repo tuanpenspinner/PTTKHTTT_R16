@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { Link } from "react-router-dom";
 export default class pagination extends Component {
   render() {
     return (
@@ -8,41 +8,41 @@ export default class pagination extends Component {
           <ul className="pagination pg-blue">
             {/*Arrow left*/}
             <li className="page-item disabled">
-              <a className="page-link" href="#" aria-label="Previous">
+              <Link className="page-link" to="" aria-label="Previous">
                 <span aria-hidden="true">«</span>
                 <span className="sr-only">Previous</span>
-              </a>
+              </Link>
             </li>
             <li className="page-item active">
-              <a className="page-link" href="#">
+              <Link className="page-link" to="">
                 1<span className="sr-only">(current)</span>
-              </a>
+              </Link>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#">
+              <Link className="page-link" to="">
                 2
-              </a>
+              </Link>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#">
+              <Link className="page-link" to="">
                 3
-              </a>
+              </Link>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#">
+              <Link className="page-link" to="">
                 4
-              </a>
+              </Link>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#">
+              <Link className="page-link" to="">
                 5
-              </a>
+              </Link>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#" aria-label="Next">
+              <Link className="page-link" to="" aria-label="Next">
                 <span aria-hidden="true">»</span>
                 <span className="sr-only">Next</span>
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

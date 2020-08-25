@@ -47,7 +47,7 @@ export default class header extends Component {
               {/* Right */}
               <ul className="navbar-nav nav-flex-icons">
                 <li className="nav-item">
-                  <Link className="nav-link waves-effect">
+                  <Link to="" className="nav-link waves-effect">
                     <span className="badge red z-depth-1 mr-1"> 1 </span>
                     <i className="fas fa-shopping-cart" />
                     <span className="clearfix d-none d-sm-inline-block">

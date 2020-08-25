@@ -4,9 +4,58 @@ import SlideBar from "./products/slidebar";
 import Footer from "./products/footer";
 import Pagination from "./products/pagination";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { url } from "./constant";
 
 export default class home extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      listProduct: [],
+    };
+  }
+  componentDidMount() {
+    this.loadData();
+  }
+  loadData = async () => {
+    const ret = await axios.get(`${url}/product/listProduct`);
+    this.setState({
+      listProduct: [...ret.data.data],
+    });
+  };
+
   render() {
+    const showListProduct = () => {
+      const list = this.state.listProduct;
+      return list.map((product, i) => {
+        return (
+          <Link
+            className="col-lg-3 col-md-6 mb-4"
+            key={i}
+            to={`/detail/${product._id}`}
+          >
+            <div className="card">
+              <div className="view overlay">
+                <img src={product.img} className="card-img-top" alt="" />
+
+                <div className="mask rgba-white-slight" />
+              </div>
+
+              <div className="card-body text-center">
+                <h5>
+                  <strong>
+                    <div className="dark-grey-text">{product.name}</div>
+                  </strong>
+                </h5>
+                <h4 className="font-weight-bold blue-text">
+                  <strong>{product.price} VNĐ</strong>
+                </h4>
+              </div>
+            </div>
+          </Link>
+        );
+      });
+    };
     return (
       <div>
         <Header></Header>
@@ -27,44 +76,7 @@ export default class home extends Component {
               </form>
             </nav>
             <section className="text-center mb-4">
-              <div className="row wow fadeIn">
-                <Link className="col-lg-3 col-md-6 mb-4" to="/detail">
-                  <div className="card">
-                    <div className="view overlay">
-                      <img
-                        src="https://salt.tikicdn.com/cache/w390/ts/product/84/96/f0/d5dc978240749543f97f9ecb11b72990.jpg"
-                        className="card-img-top"
-                        alt=""
-                      />
-
-                      <div className="mask rgba-white-slight" />
-                    </div>
-                    {/*Card image*/}
-                    {/*Card content*/}
-                    <div className="card-body text-center">
-                      {/*Category & Title*/}
-                      <a href className="grey-text">
-                        <h5>Shirt</h5>
-                      </a>
-                      <h5>
-                        <strong>
-                          <a href className="dark-grey-text">
-                            Denim shirt
-                            <span className="badge badge-pill danger-color">
-                              NEW
-                            </span>
-                          </a>
-                        </strong>
-                      </h5>
-                      <h4 className="font-weight-bold blue-text">
-                        <strong>120$</strong>
-                      </h4>
-                    </div>
-                    {/*Card content*/}
-                  </div>
-                  {/*Card*/}
-                </Link>
-              </div>
+              <div className="row wow fadeIn">{showListProduct()}</div>
             </section>
 
             <Pagination></Pagination>

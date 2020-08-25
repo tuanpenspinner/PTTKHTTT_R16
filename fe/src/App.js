@@ -17,7 +17,7 @@ export class App extends Component {
           <Route path="/home" exact>
             <Home />
           </Route>
-          <Route path="/detail" exact>
+          <Route path="/detail/:idProduct" exact>
             <DetailProduct />
           </Route>
           <Route path="/checkout" exact>
