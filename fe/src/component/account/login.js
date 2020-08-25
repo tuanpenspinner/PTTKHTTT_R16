@@ -1,42 +1,50 @@
 import React, { Component } from "react";
 import { Link, Redirect, withRouter } from "react-router-dom";
-import { connect } from "react-redux";
-import * as actions from "../../actions/actionLogin";
-import { urlLogin } from "../../constants/endPoint";
+import { url } from "../constant";
 import axios from "axios";
-import Google from "./Google";
+
 // import Facebook from "./Facebook";
-import "./Login.css";
+import "./login.css";
 
 class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: "",
+      password: "",
+    };
+  }
+
   onchange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    let { account } = this.props.login;
-    let { onChange } = this.props;
-    account = {
-      ...account,
+    this.setState({
       [name]: value,
-    };
-    onChange(account);
-  };
-
-  onclick = () => {
-    const { account } = this.props.login;
-    axios.post(urlLogin, account).then((res) => {
-      if (res.data.failLogin) alert(JSON.stringify(res.data.failLogin));
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-        this.props.history.push("/home");
-      }
     });
   };
 
+  onclick = async () => {
+    const body = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+    const ret = await axios.post(`${url}/customer/login`, body);
+    if (ret.data.status) {
+      localStorage.setItem("accessToken", ret.data.accessToken);
+      localStorage.setItem(
+        "info",
+        JSON.stringify({
+          username: ret.data.customer.username,
+          name: ret.data.customer.name,
+          email: ret.data.customer.email,
+          phone: ret.data.customer.phone,
+        })
+      );
+      window.location.href = "./";
+    } else alert("Login không thành công!");
+  };
+
   render() {
-    const token = localStorage.getItem("token");
-    if (token) {
-      return <Redirect to="/home" />;
-    }
     return (
       <div className="background p-5">
         <div className="container">
@@ -53,7 +61,7 @@ class Login extends Component {
                     <input
                       type="text"
                       id="inputUsername"
-                      name="userName"
+                      name="username"
                       className="form-control"
                       placeholder="Username"
                       autoFocus
@@ -66,7 +74,7 @@ class Login extends Component {
                     <input
                       type="password"
                       id="inputPassword"
-                      name="passWord"
+                      name="password"
                       className="form-control"
                       placeholder="Password"
                       onChange={this.onchange}
@@ -103,8 +111,6 @@ class Login extends Component {
                     Register
                   </Link>
                   <hr className="mt-5" />
-                  <Google />
-                  {/* <Facebook /> */}
                 </form>
               </div>
             </div>
@@ -115,17 +121,4 @@ class Login extends Component {
   }
 }
 
-const mapStatetoProps = (state) => {
-  return {
-    login: state.login,
-  };
-};
-
-const mapDispathToProps = (dispatch, props) => {
-  return {
-    onChange: (account) => {
-      dispatch(actions.onChange(account));
-    },
-  };
-};
-export default withRouter(connect(mapStatetoProps, mapDispathToProps)(Login));
+export default Login;

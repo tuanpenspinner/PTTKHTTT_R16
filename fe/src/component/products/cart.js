@@ -46,7 +46,7 @@ export default class cart extends Component {
                           defaultValue={1}
                         />
                       </td>
-                      <td className="text-right">70,00 €</td>
+                      <td className="text-right">70,00 VNĐ</td>
                       <td className="text-right">
                         <button className="btn btn-sm btn-danger">
                           <i className="fa fa-trash" />{" "}
@@ -78,7 +78,7 @@ export default class cart extends Component {
                         <strong>Tổng</strong>
                       </td>
                       <td className="text-right">
-                        <strong>346,90 €</strong>
+                        <strong>346,90 VNĐ</strong>
                       </td>
                     </tr>
                   </tbody>

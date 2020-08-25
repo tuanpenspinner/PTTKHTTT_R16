@@ -1,7 +1,16 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 export default class header extends Component {
+  logOut = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("info");
+    window.location.href = "./login";
+  };
   render() {
+    const accessToken = localStorage.getItem("accessToken");
+
+    const info = JSON.parse(localStorage.getItem("info"));
+   
     return (
       <div>
         <nav className="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
@@ -57,10 +66,19 @@ export default class header extends Component {
                 </li>
                 <li className="nav-item">
                   <Link to="" className="nav-link waves-effect">
-                    <i className="fa fa-user" aria-hidden="true"></i>
+                    <i className="fa fa-user" aria-hidden="true">
+                      {info!==null?info.name:""}
+                    </i>
                   </Link>
                 </li>
-               
+                <li
+                  className="nav-item"
+                  style={{ display: accessToken ? true : "none" }}
+                >
+                  <div onClick={this.logOut} className="nav-link waves-effect">
+                    Đăng xuất
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
