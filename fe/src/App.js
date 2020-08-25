@@ -5,6 +5,7 @@ import Home from "./component/home";
 import DetailProduct from "./component/products/detail_product";
 import CheckOut from "./component/products/checkout";
 import Admin from "./component/admin"
+import Cart from "./component/products/cart"
 
 export class App extends Component {
   render() {
@@ -25,6 +26,9 @@ export class App extends Component {
           </Route>
           <Route path="/admin" exact>
             <Admin />
+          </Route>
+          <Route path="/cart" exact>
+            <Cart />
           </Route>
         </Switch>
       </Router>

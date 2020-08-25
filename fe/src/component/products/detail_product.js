@@ -4,6 +4,7 @@ import Footer from "./footer";
 import { withRouter } from "react-router-dom";
 import Comment from "./comment";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { url } from "../constant";
 class detail_product extends Component {
   constructor(props) {
@@ -73,13 +74,14 @@ class detail_product extends Component {
                       className="form-control"
                       style={{ width: "100px" }}
                     />
-                    <button
+                    <Link
+                      to="/cart"
                       className="btn btn-primary btn-md my-0 p"
                       type="submit"
                     >
                       Add to cart
                       <i className="fas fa-shopping-cart ml-1" />
-                    </button>
+                    </Link>
                   </form>
                 </div>
                 {/*Content*/}

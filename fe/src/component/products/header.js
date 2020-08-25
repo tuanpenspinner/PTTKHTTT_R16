@@ -27,10 +27,10 @@ export default class header extends Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav mr-auto">
-                <li className="nav-item active">
-                  <Link className="nav-link waves-effect" to="#">
+                <li className="nav-item ">
+                  <Link className="nav-link waves-effect" to="">
                     Home
-                    <span className="sr-only">(current)</span>
+                    <span className="sr-only"></span>
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -47,8 +47,8 @@ export default class header extends Component {
               {/* Right */}
               <ul className="navbar-nav nav-flex-icons">
                 <li className="nav-item">
-                  <Link to="" className="nav-link waves-effect">
-                    <span className="badge red z-depth-1 mr-1"> 1 </span>
+                  <Link to="./cart" className="nav-link waves-effect">
+                    <span className="badge red z-depth-1 mr-1"></span>
                     <i className="fas fa-shopping-cart" />
                     <span className="clearfix d-none d-sm-inline-block">
                       Cart
@@ -60,6 +60,7 @@ export default class header extends Component {
                     <i className="fa fa-user" aria-hidden="true"></i>
                   </Link>
                 </li>
+               
               </ul>
             </div>
           </div>
