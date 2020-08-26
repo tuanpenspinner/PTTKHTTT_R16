@@ -22,6 +22,15 @@ export default class allProduct extends Component {
     if (ret.data.status) alert("Xóa sản phẩm thành công!");
     this.loadData();
   };
+
+  editProduct = (product) => {
+    this.props.history.push({
+      pathname: "/admin/edit",
+      state: {
+        product,
+      },
+    });
+  };
   showData = () => {
     const list = this.state.listProduct;
     return list.map((product, i) => {
@@ -38,7 +47,11 @@ export default class allProduct extends Component {
               aria-hidden="true"
               onClick={() => this.removeProduct(product._id)}
             ></i>
-            <i className="fa fa-location-arrow" aria-hidden="true"></i>
+            <i
+              className="fa fa-location-arrow"
+              onClick={() => this.editProduct(product)}
+              aria-hidden="true"
+            ></i>
           </td>
         </tr>
       );

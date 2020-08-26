@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Header from "./header";
-
+import { withRouter } from "react-router-dom";
 import Footer from "./footer";
-export default class checkout extends Component {
+class checkout extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +20,14 @@ export default class checkout extends Component {
         isCard: "none",
       });
   };
+  checkOut = () => {
+    alert("Đặt hàng thành công!");
+    this.props.history.push({
+      pathname: "/",
+    });
+  };
   render() {
+    const { product, number, sum } = this.props.location.state;
     return (
       <div>
         <Header></Header>
@@ -47,9 +54,7 @@ export default class checkout extends Component {
                             id="firstName"
                             className="form-control"
                           />
-                          <label htmlFor="firstName" className>
-                            Họ
-                          </label>
+                          <label htmlFor="firstName">Họ</label>
                         </div>
                       </div>
                       {/*Grid column*/}
@@ -62,9 +67,7 @@ export default class checkout extends Component {
                             id="lastName"
                             className="form-control"
                           />
-                          <label htmlFor="lastName" className>
-                            Tên
-                          </label>
+                          <label htmlFor="lastName">Tên</label>
                         </div>
                       </div>
                       {/*Grid column*/}
@@ -80,9 +83,7 @@ export default class checkout extends Component {
                         className="form-control"
                         placeholder=""
                       />
-                      <label htmlFor="email" className>
-                        Email
-                      </label>
+                      <label htmlFor="email">Email</label>
                     </div>
                     {/*address*/}
                     <div className="md-form mb-5">
@@ -91,9 +92,7 @@ export default class checkout extends Component {
                         id="address"
                         className="form-control"
                       />
-                      <label htmlFor="address" className>
-                        Địa chỉ
-                      </label>
+                      <label htmlFor="address">Địa chỉ</label>
                     </div>
 
                     <hr />
@@ -137,7 +136,7 @@ export default class checkout extends Component {
                         </label>
                       </div>
                     </div>
-                    <div style={{ display: this.state.isCard }} >
+                    <div style={{ display: this.state.isCard }}>
                       <div className="row">
                         <div className="col-md-6 mb-3">
                           <label htmlFor="cc-name">Name on card</label>
@@ -145,7 +144,6 @@ export default class checkout extends Component {
                             type="text"
                             className="form-control"
                             id="cc-name"
-                            placeholder
                             required
                           />
                           <small className="text-muted">
@@ -161,7 +159,6 @@ export default class checkout extends Component {
                             type="text"
                             className="form-control"
                             id="cc-number"
-                            placeholder
                             required
                           />
                           <div className="invalid-feedback">
@@ -176,7 +173,6 @@ export default class checkout extends Component {
                             type="text"
                             className="form-control"
                             id="cc-expiration"
-                            placeholder
                             required
                           />
                           <div className="invalid-feedback">
@@ -189,7 +185,6 @@ export default class checkout extends Component {
                             type="text"
                             className="form-control"
                             id="cc-cvv"
-                            placeholder
                             required
                           />
                           <div className="invalid-feedback">
@@ -201,7 +196,7 @@ export default class checkout extends Component {
                     <hr className="mb-4" />
                     <button
                       className="btn btn-primary btn-lg btn-block"
-                      type="submit"
+                      onClick={this.checkOut}
                     >
                       Thanh toán
                     </button>
@@ -220,15 +215,15 @@ export default class checkout extends Component {
                 <ul className="list-group mb-3 z-depth-1">
                   <li className="list-group-item d-flex justify-content-between lh-condensed">
                     <div>
-                      <h6 className="my-0">Name: Bút quay</h6>
-                      <small className="text-muted">Số lượng:1</small>
+                      <h6 className="my-0">Name: {product.name}</h6>
+                      <small className="text-muted">Số lượng:{number}</small>
                     </div>
-                    <span className="text-muted">5000 VNĐ</span>
+                    <span className="text-muted">{product.price} VNĐ</span>
                   </li>
 
                   <li className="list-group-item d-flex justify-content-between">
-                    <span>Tổng tiền (VNĐ)</span>
-                    <strong>20000</strong>
+                    <span>Tổng tiền: </span>
+                    <strong>{sum} (VNĐ)</strong>
                   </li>
                 </ul>
               </div>
@@ -240,3 +235,4 @@ export default class checkout extends Component {
     );
   }
 }
+export default withRouter(checkout);

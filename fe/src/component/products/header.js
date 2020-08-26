@@ -10,7 +10,7 @@ export default class header extends Component {
     const accessToken = localStorage.getItem("accessToken");
 
     const info = JSON.parse(localStorage.getItem("info"));
-   
+
     return (
       <div>
         <nav className="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
@@ -56,18 +56,21 @@ export default class header extends Component {
               {/* Right */}
               <ul className="navbar-nav nav-flex-icons">
                 <li className="nav-item">
-                  <Link to="./cart" className="nav-link waves-effect">
+                  <div className="nav-link waves-effect">
                     <span className="badge red z-depth-1 mr-1"></span>
                     <i className="fas fa-shopping-cart" />
                     <span className="clearfix d-none d-sm-inline-block">
                       Cart
                     </span>
-                  </Link>
+                  </div>
                 </li>
                 <li className="nav-item">
-                  <Link to="" className="nav-link waves-effect">
+                  <Link
+                    to={accessToken ? "" : ""}
+                    className="nav-link waves-effect"
+                  >
                     <i className="fa fa-user" aria-hidden="true">
-                      {info!==null?info.name:""}
+                      {info !== null ? info.name : ""}
                     </i>
                   </Link>
                 </li>

@@ -1,10 +1,51 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import Header from "./header";
 
 import Footer from "./footer";
-export default class cart extends Component {
+class cart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      productDetail: {
+        name: "",
+        img: "",
+        detail: "",
+        price: 0,
+        number: 0,
+        CateId: 0,
+        arrCmt: [],
+      },
+      sum: 0,
+      number: 1,
+    };
+  }
+  componentDidMount() {
+    const product = this.props.location.state.product;
+    this.setState({
+      productDetail: { ...product },
+      sum: product.price,
+    });
+  }
+  onChange = (e) => {
+    const { productDetail } = this.state;
+    this.setState({
+      sum: e.target.value * productDetail.price,
+      number: e.target.value,
+    });
+  };
+  onCheckout = () => {
+    this.props.history.push({
+      pathname: "/checkout",
+      state: {
+        product: this.state.productDetail,
+        number: this.state.number,
+        sum: this.state.sum,
+      },
+    });
+  };
   render() {
+    const { productDetail } = this.state;
     return (
       <div>
         <Header></Header>
@@ -35,40 +76,30 @@ export default class cart extends Component {
                   <tbody>
                     <tr>
                       <td>
-                        <img src="https://dummyimage.com/50x50/55595c/fff" />{" "}
+                        <img
+                          alt="fdsf"
+                          src="https://dummyimage.com/50x50/55595c/fff"
+                        />
                       </td>
-                      <td>Product Name Titi</td>
+                      <td>{productDetail.name}</td>
                       <td>In stock</td>
                       <td>
                         <input
                           className="form-control"
-                          type="text"
-                          defaultValue={1}
+                          type="number"
+                          name="number"
+                          defaultValue={this.state.number}
+                          onChange={this.onChange}
                         />
                       </td>
-                      <td className="text-right">70,00 VNĐ</td>
+                      <td className="text-right">{productDetail.price} VNĐ</td>
                       <td className="text-right">
                         <button className="btn btn-sm btn-danger">
                           <i className="fa fa-trash" />{" "}
                         </button>{" "}
                       </td>
                     </tr>
-                    <tr>
-                      <td />
-                      <td />
-                      <td />
-                      <td />
-                      <td>Tổng tiền</td>
-                      <td className="text-right">255,90 VNĐ</td>
-                    </tr>
-                    <tr>
-                      <td />
-                      <td />
-                      <td />
-                      <td />
-                      <td>Phí ship</td>
-                      <td className="text-right">6,90 VND</td>
-                    </tr>
+
                     <tr>
                       <td />
                       <td />
@@ -78,7 +109,7 @@ export default class cart extends Component {
                         <strong>Tổng</strong>
                       </td>
                       <td className="text-right">
-                        <strong>346,90 VNĐ</strong>
+                        <strong>{this.state.sum} VNĐ</strong>
                       </td>
                     </tr>
                   </tbody>
@@ -88,17 +119,17 @@ export default class cart extends Component {
             <div className="col mb-2">
               <div className="row">
                 <div className="col-sm-12  col-md-6">
-                  <button className="btn btn-block btn-light">
+                  <Link to="/" className="btn btn-block btn-light">
                     Tiếp tục mua sắm
-                  </button>
+                  </Link>
                 </div>
                 <div className="col-sm-12 col-md-6 text-right">
-                  <Link
-                    to="/checkout"
+                  <div
+                    onClick={this.onCheckout}
                     className="btn btn-lg btn-block btn-success text-uppercase"
                   >
                     Thanh toán
-                  </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -109,3 +140,4 @@ export default class cart extends Component {
     );
   }
 }
+export default withRouter(cart);

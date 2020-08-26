@@ -32,8 +32,23 @@ class detail_product extends Component {
       productDetail: { ...ret.data.data },
     });
   };
+  reLoad = () => {
+    const { idProduct } = this.props.match.params;
+    this.loadData(idProduct);
+  };
+  addCart = (product) => {
+  
+    this.props.history.push({
+      pathname: "/cart",
+      state: {
+        product,
+      },
+    });
+  };
+
   render() {
     const { productDetail } = this.state;
+
     return (
       <div>
         <Header></Header>
@@ -74,14 +89,14 @@ class detail_product extends Component {
                       className="form-control"
                       style={{ width: "100px" }}
                     />
-                    <Link
-                      to="/cart"
+                    <div
+                      onClick={() => this.addCart(productDetail)}
                       className="btn btn-primary btn-md my-0 p"
                       type="submit"
                     >
                       Add to cart
                       <i className="fas fa-shopping-cart ml-1" />
-                    </Link>
+                    </div>
                   </form>
                 </div>
                 {/*Content*/}
@@ -92,7 +107,11 @@ class detail_product extends Component {
             <hr />
           </div>
         </main>
-        <Comment arrCmt={this.state.productDetail.arrCmt}></Comment>
+        <Comment
+          arrCmt={this.state.productDetail.arrCmt}
+          productDetail={this.state.productDetail}
+          reLoad={this.reLoad}
+        ></Comment>
         <Footer></Footer>
       </div>
     );

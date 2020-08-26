@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import "./css.css";
 import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
+import axios from "axios";
+import { url } from "../constant";
 export default class comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
       rating: 5,
+      content: "",
     };
   }
   changeRating = (newRating, name) => {
@@ -14,11 +17,31 @@ export default class comment extends Component {
       rating: newRating,
     });
   };
+  onChange = (e) => {
+    this.setState({
+      content: e.target.value,
+    });
+  };
+  onCmt = async () => {
+    const info = JSON.parse(localStorage.getItem("info"));
+    const productDetail = this.props.productDetail;
+    const reLoad = this.props.reLoad;
+    const myCmt = {
+      content: this.state.content,
+      vote: this.state.rating,
+      name: info.name,
+    };
+    productDetail.arrCmt.push(myCmt);
+    const ret = await axios.put(`${url}/product`, productDetail);
+
+    if (ret.data.status) alert("Cmt thành công!");
+    reLoad();
+  };
 
   render() {
     const arrCmt = this.props.arrCmt;
     const showCmt = () => {
-      return arrCmt.map((cmt, i) => {
+      return arrCmt.reverse().map((cmt, i) => {
         return (
           <div className="media" key={i}>
             <Link className="pull-left" to="#">
@@ -39,12 +62,12 @@ export default class comment extends Component {
               />
               <p>{cmt.content}</p>
 
-              <ul className="list-unstyled list-inline media-detail pull-left">
+              {/* <ul className="list-unstyled list-inline media-detail pull-left">
                 <li>
                   <i className="fa fa-calendar" />
                   27/02/2014
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         );
@@ -61,7 +84,7 @@ export default class comment extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-sm-8">
-                  <form>
+                  <div>
                     <StarRatings
                       rating={this.state.rating}
                       starRatedColor="blue"
@@ -70,7 +93,10 @@ export default class comment extends Component {
                       name="rating"
                     />
                     <h3 className="pull-left">New Comment</h3>
-                    <button type="submit" className="btn btn-normal pull-right">
+                    <button
+                      onClick={this.onCmt}
+                      className="btn btn-normal pull-right"
+                    >
                       Submit
                     </button>
                     <fieldset>
@@ -82,6 +108,8 @@ export default class comment extends Component {
                           <textarea
                             className="form-control"
                             id="message"
+                            name="myCmt"
+                            onChange={this.onChange}
                             placeholder="Your message"
                             required
                             defaultValue={""}
@@ -89,7 +117,7 @@ export default class comment extends Component {
                         </div>
                       </div>
                     </fieldset>
-                  </form>
+                  </div>
                   <h3> Comments</h3>
                   {/* COMMENT 1 - START */}
                   {showCmt()}
