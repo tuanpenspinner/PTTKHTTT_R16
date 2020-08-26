@@ -20,6 +20,7 @@ const productSchema = new Schema({
   detail: { type: String, default: null },
   price: { type: Number, default: null },
   CateId: { type: String, default: null },
+  nameEmployee: { type: String, default: null },
   arrCmt: { type: [comment], default: [] },
 });
 
@@ -47,7 +48,7 @@ module.exports = {
   },
   getProduct: async (id) => {
     try {
-      var products = await Product.findById({_id:id});
+      var products = await Product.findById({ _id: id });
       return products;
     } catch (e) {
       console.log("ERROR: " + e.message);
@@ -56,11 +57,11 @@ module.exports = {
   },
   updateProduct: async (entity) => {
     try {
-      var products = await Product.findByIdAndUpdate(
-        { _id: entity._id },
-        entity
-      );
-      return true;
+     
+      var products = await Product.findByIdAndUpdate(entity._id, entity);
+    
+      if (products) return true;
+      else return false;
     } catch (e) {
       console.log("ERROR: " + e.message);
       return 0;

@@ -6,7 +6,7 @@ export default class checkout extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCard: false,
+      isCard: "none",
     };
   }
   onChange = (e) => {
