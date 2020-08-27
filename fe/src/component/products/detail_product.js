@@ -4,7 +4,6 @@ import Footer from "./footer";
 import { withRouter } from "react-router-dom";
 import Comment from "./comment";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { url } from "../constant";
 class detail_product extends Component {
   constructor(props) {

@@ -31,6 +31,14 @@ export default class allProduct extends Component {
       },
     });
   };
+  comment = (product) => {
+    this.props.history.push({
+      pathname: "/admin/comment",
+      state: {
+        product,
+      },
+    });
+  };
   showData = () => {
     const list = this.state.listProduct;
     return list.map((product, i) => {
@@ -38,6 +46,13 @@ export default class allProduct extends Component {
         <tr key={i}>
           <th scope="row">{i + 1}</th>
           <td>{product.name}</td>
+          <td>
+            <img
+              src={product.img}
+              alt="..."
+              style={{ width: 100, height: 100 }}
+            ></img>
+          </td>
           <td>{product.price}</td>
           <td>{product.number}</td>
           <td>{product.nameEmployee}</td>
@@ -48,9 +63,14 @@ export default class allProduct extends Component {
               onClick={() => this.removeProduct(product._id)}
             ></i>
             <i
-              className="fa fa-location-arrow"
+              className="fa fa-location-arrow mr-5"
               onClick={() => this.editProduct(product)}
               aria-hidden="true"
+            ></i>
+            <i
+              className="fa fa-comment "
+              aria-hidden="true"
+              onClick={() => this.comment(product)}
             ></i>
           </td>
         </tr>
@@ -66,6 +86,7 @@ export default class allProduct extends Component {
             <tr>
               <th scope="col"></th>
               <th scope="col">Tên</th>
+              <th scope="col">Hình ảnh</th>
               <th scope="col">Giá</th>
               <th scope="col">Số lượng</th>
               <th scope="col">Tên nhân viên nhập</th>

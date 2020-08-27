@@ -1,12 +1,9 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Edit from "./edit";
 import AllProduct from "./allProduct";
 import Add from "./add";
+import Comment from "./comment";
 class admin extends Component {
   constructor(props) {
     super(props);
@@ -30,17 +27,14 @@ class admin extends Component {
                     Thêm sản phẩm
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link to="/admin/edit" className="nav-link" href="#">
-                    Edit
-                  </Link>
-                </li>
+              
               </ul>
             </div>
           </nav>
-          <Route exact path="/admin/edit" component={Edit} />
+          <Route path="/admin/edit" component={Edit} />
           <Route path="/admin/allProduct" component={AllProduct} />
           <Route path="/admin/add" component={Add} />
+          <Route path="/admin/comment" component={Comment} />
         </div>
       </Router>
     );

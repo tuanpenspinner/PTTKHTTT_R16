@@ -4,7 +4,7 @@ export default class header extends Component {
   logOut = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("info");
-    window.location.href = "./login";
+    window.location.href = "/login";
   };
   render() {
     const accessToken = localStorage.getItem("accessToken");
@@ -66,7 +66,7 @@ export default class header extends Component {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to={accessToken ? "" : ""}
+                    to={accessToken ? "" : "/login"}
                     className="nav-link waves-effect"
                   >
                     <i className="fa fa-user" aria-hidden="true">

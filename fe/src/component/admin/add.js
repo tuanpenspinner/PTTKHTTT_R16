@@ -45,6 +45,7 @@ export default class add extends Component {
     return (
       <div className="mt-4">
         <div className="form-group">
+          <h1>Thêm sản phẩm</h1>
           <label htmlFor="exampleInputEmail1">Tên nhân viên nhập</label>
           <input
             type="text"

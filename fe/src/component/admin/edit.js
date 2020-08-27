@@ -51,6 +51,7 @@ class edit extends Component {
     return (
       <div className="mt-4">
         <div className="form-group">
+          <h1>Chỉnh sửa sản phẩm</h1>
           <label htmlFor="exampleInputEmail1">Tên nhân viên nhập</label>
           <input
             type="text"
