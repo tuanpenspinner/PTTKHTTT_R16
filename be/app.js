@@ -18,5 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
-app.use("/product", productRoute)
+app.use("/product", productRoute);
 app.use("/customer", customerRoute);
+app.use("/", (req, res) => {
+  res.send("Hello");
+});

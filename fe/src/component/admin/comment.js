@@ -64,12 +64,12 @@ export default class comment extends Component {
               />
               <p>{cmt.content}</p>
 
-              {/* <ul className="list-unstyled list-inline media-detail pull-left">
+              <ul className="list-unstyled list-inline media-detail pull-left">
                 <li>
                   <i className="fa fa-calendar" />
-                  27/02/2014
+                  {cmt.dateCre}
                 </li>
-              </ul> */}
+              </ul>
             </div>
           </div>
         );

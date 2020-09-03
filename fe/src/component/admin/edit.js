@@ -44,7 +44,7 @@ class edit extends Component {
     console.log(body);
     const ret = await axios.put(`${url}/product`, body);
 
-    if (ret.data.status) alert("Thêm sửa sản phẩm thành công!");
+    if (ret.data.status) alert("Sửa sản phẩm thành công!");
   };
   render() {
     const { name, detail, price, number, img, nameEmployee } = this.state;

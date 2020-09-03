@@ -26,10 +26,14 @@ export default class comment extends Component {
     const info = JSON.parse(localStorage.getItem("info"));
     const productDetail = this.props.productDetail;
     const reLoad = this.props.reLoad;
+    var dateCre = new Date();
     const myCmt = {
       content: this.state.content,
       vote: this.state.rating,
       name: info.name,
+      dateCre,
+      idUser: info.idUser,
+      
     };
     productDetail.arrCmt.push(myCmt);
     const ret = await axios.put(`${url}/product`, productDetail);
@@ -62,12 +66,12 @@ export default class comment extends Component {
               />
               <p>{cmt.content}</p>
 
-              {/* <ul className="list-unstyled list-inline media-detail pull-left">
+              <ul className="list-unstyled list-inline media-detail pull-left">
                 <li>
                   <i className="fa fa-calendar" />
-                  27/02/2014
+                  {cmt.dateCre}
                 </li>
-              </ul> */}
+              </ul>
             </div>
           </div>
         );

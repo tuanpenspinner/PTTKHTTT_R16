@@ -44,3 +44,7 @@ export class App extends Component {
 }
 
 export default App;
+// "dev": "react-scripts start",
+// "start": "serve -s build",
+// "build": "react-scripts build",
+// "heroku-postbuild": "npm run build"

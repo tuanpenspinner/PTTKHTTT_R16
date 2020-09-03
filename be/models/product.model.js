@@ -8,6 +8,8 @@ const comment = new Schema(
     name: { type: String, required: true },
     content: { type: String, required: true },
     vote: { type: Number, required: true },
+    dateCre: { type: Date, required: true },
+    idUser: { type: String, required: true },
   },
   {
     _id: false,

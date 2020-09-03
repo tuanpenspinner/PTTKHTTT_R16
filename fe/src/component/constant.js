@@ -1,4 +1,3 @@
-export const url = `http://localhost:3001`;
-// https://dacnpm-nhom1.herokuapp.com/
-// http://localhost:8000
-
+export const url = `https://be-pttkhttt-nhom16.herokuapp.com`;
+// https://be-pttkhttt-nhom16.herokuapp.com
+// http://localhost:3001
