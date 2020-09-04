@@ -66,6 +66,24 @@ exports.loginCustomer = async (req, res) => {
     });
   }
 };
+exports.sendAdvertise = async (req, res) => {
+  const email = req.body.email;
+  const content = req.body.content;
+
+  const ret = await Customer.sendAdvertise(email, content);
+  console.log(ret)
+  if (ret) {
+    res.json({
+      status: true,
+      message: "gửi email thành công!",
+    });
+  } else {
+    res.json({
+      status: false,
+      message: "gửi email thất bại!",
+    });
+  }
+};
 
 //Đổi mật khẩu customer
 
