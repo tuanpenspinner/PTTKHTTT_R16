@@ -36,7 +36,6 @@ class detail_product extends Component {
     this.loadData(idProduct);
   };
   addCart = (product) => {
-  
     this.props.history.push({
       pathname: "/cart",
       state: {
@@ -64,11 +63,6 @@ class detail_product extends Component {
               <div className="col-md-6 mb-4">
                 {/*Content*/}
                 <div className="p-4">
-                  <div className="mb-3">
-                    <div>
-                      <span className="badge purple mr-1">Category 2</span>
-                    </div>
-                  </div>
                   <h5>
                     <strong>
                       <div className="dark-grey-text">{productDetail.name}</div>

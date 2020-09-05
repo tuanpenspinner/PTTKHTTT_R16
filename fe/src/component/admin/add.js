@@ -13,6 +13,7 @@ export default class add extends Component {
       price: "",
       detail: "",
       nameEmployee: "",
+      listReceiverAdvertise: [],
     };
   }
 
@@ -26,7 +27,15 @@ export default class add extends Component {
   };
 
   onSave = async () => {
-    const { name, detail, price, number, img, nameEmployee } = this.state;
+    const {
+      name,
+      detail,
+      price,
+      number,
+      img,
+      nameEmployee,
+      listReceiverAdvertise,
+    } = this.state;
     const body = {
       name,
       detail,
@@ -34,6 +43,7 @@ export default class add extends Component {
       number,
       img,
       nameEmployee,
+      listReceiverAdvertise,
     };
 
     const ret = await axios.post(`${url}/product`, body);

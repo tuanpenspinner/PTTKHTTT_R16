@@ -41,6 +41,7 @@ export default class allProduct extends Component {
   };
   showData = () => {
     const list = this.state.listProduct;
+
     return list.map((product, i) => {
       return (
         <tr key={i}>

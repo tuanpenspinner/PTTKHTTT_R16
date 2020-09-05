@@ -66,24 +66,6 @@ exports.loginCustomer = async (req, res) => {
     });
   }
 };
-exports.sendAdvertise = async (req, res) => {
-  const email = req.body.email;
-  const content = req.body.content;
-
-  const ret = await Customer.sendAdvertise(email, content);
-  console.log(ret)
-  if (ret) {
-    res.json({
-      status: true,
-      message: "gửi email thành công!",
-    });
-  } else {
-    res.json({
-      status: false,
-      message: "gửi email thất bại!",
-    });
-  }
-};
 
 //Đổi mật khẩu customer
 
@@ -93,4 +75,25 @@ const generateAccessToken = (payload) => {
   });
 
   return accessToken;
+};
+exports.listCustomer = async (req, res) => {
+  try {
+    var listCustomer = await Customer.listCustomer();
+    listCustomer = listCustomer.map((customer) => {
+      return {
+        name: customer.name,
+        email: customer.email,
+      };
+    });
+    res.json({
+      status: true,
+      listCustomer: listCustomer,
+    });
+  } catch (e) {
+    console.log("ERROR: " + e);
+    return res.json({
+      status: false,
+      message: "Lấy danh sách thất bại",
+    });
+  }
 };

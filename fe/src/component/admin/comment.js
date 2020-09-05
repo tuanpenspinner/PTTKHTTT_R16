@@ -1,18 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
+import axios from "axios";
+import { url } from "../constant";
 export default class comment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      _id: "",
-      name: "",
-      img:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/600px-No_image_available.svg.png",
-      number: "",
-      price: "",
-      detail: "",
-      nameEmployee: "",
+      product: [],
       arrCmt: "",
       arrCmt1: "",
     };
@@ -21,13 +16,15 @@ export default class comment extends Component {
   componentWillMount() {
     const product = this.props.location.state.product;
     this.setState({
-      ...product,
+      product: { ...product },
+      arrCmt: [...product.arrCmt],
       arrCmt1: [...product.arrCmt],
     });
   }
   onChange = (e) => {
     const value = e.target.value;
     const arrCmt = this.state.arrCmt;
+
     var arrCmt1 = [];
     if (value === "1") {
       this.setState({ arrCmt1: arrCmt });
@@ -38,6 +35,18 @@ export default class comment extends Component {
       arrCmt1 = arrCmt.filter((cmt) => cmt.vote < 3);
       this.setState({ arrCmt1: arrCmt1 });
     }
+  };
+  removeComment = async (comment) => {
+    var product = this.state.product;
+    let { arrCmt1 } = this.state;
+
+    arrCmt1 = arrCmt1.filter((cmt) => cmt.content !== comment.content);
+    product.arrCmt = [...arrCmt1];
+    this.setState({
+      arrCmt1,
+    });
+    await axios.put(`${url}/product`, product);
+    alert("Xóa bình luận thành công!")
   };
   render() {
     const arrCmt1 = this.state.arrCmt1;
@@ -71,6 +80,11 @@ export default class comment extends Component {
                 </li>
               </ul>
             </div>
+            <i
+              className="fa fa-trash"
+              aria-hidden="true"
+              onClick={() => this.removeComment(cmt)}
+            ></i>
           </div>
         );
       });
@@ -79,7 +93,7 @@ export default class comment extends Component {
       <div>
         <h1>Quản lý comment</h1>
         <label htmlFor="exampleInputEmail1">
-          Tên sản phẩm:{this.state.name}{" "}
+          Tên sản phẩm:{this.state.name}
         </label>
         <img
           src={this.state.img}

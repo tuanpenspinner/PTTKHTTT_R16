@@ -7,5 +7,5 @@ router.get("/detail/:id", productController.getProduct);
 router.get("/listProduct", productController.getAllProduct);
 router.put("/", productController.updateProduct);
 router.delete("/:id", productController.deleteProduct);
-
+router.post("/advertise", productController.sendAdvertise);
 module.exports = router;
